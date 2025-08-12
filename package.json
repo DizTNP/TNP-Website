@@ -1,0 +1,33 @@
+{
+  "name": "tnp-website",
+  "version": "1.0.0",
+  "description": "Professional website for Top Notch Plumbing (TNP) - Paducah, KY",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static site - no build process needed'",
+    "deploy": "echo 'Deploy to your hosting provider'"
+  },
+  "keywords": [
+    "plumbing",
+    "paducah",
+    "kentucky",
+    "top-notch-plumbing",
+    "tnp",
+    "website"
+  ],
+  "author": "Top Notch Plumbing",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DizTNP/TNP-Website.git"
+  },
+  "homepage": "https://github.com/DizTNP/TNP-Website#readme",
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
