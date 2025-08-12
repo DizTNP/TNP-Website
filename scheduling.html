@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Schedule your plumbing appointment with Top Notch Plumbing (TNP) in Paducah, KY. Easy online booking with real-time availability for new construction, sewer repair, and residential services.">
+    <meta name="keywords" content="schedule plumbing, book appointment, Paducah plumber, online booking, TNP, sewer repair Paducah">
+    <title>Schedule Appointment - Top Notch Plumbing (TNP)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/gif" href="images/tnp-logo-no-backgrond.gif">
+</head>
+<body>
+    <!-- Emergency Contact Bar - Inspired by Mr. Rooter -->
+    <div class="emergency-bar">
+        <div class="emergency-phone">
+            <span>🚨 Emergency Plumbing Available 24/7</span>
+            <span class="phone-number">
+                <a href="tel:270-681-8162">(270) 681-8162</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/tnp-logo-no-backgrond.gif" alt="Top Notch Plumbing Logo - Paducah, KY">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="services.html" class="nav-link">Services</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="scheduling.html" class="nav-link active">Scheduling</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Schedule Your Plumbing Appointment</h1>
+            <p>Book your appointment online with our easy scheduling system. Select your service and preferred time slot.</p>
+        </div>
+    </section>
+
+    <!-- Scheduling Form Section -->
+    <section class="scheduling-form-section">
+        <div class="container">
+            <div class="scheduling-content">
+                <div class="scheduling-info">
+                    <h2>Easy Online Booking</h2>
+                    <p>Our scheduling system makes it simple to book your plumbing appointment. Fill out the form below and we'll confirm your appointment within 2 hours.</p>
+                    
+                    <div class="booking-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">📅</div>
+                            <div class="feature-text">
+                                <h3>Flexible Scheduling</h3>
+                                <p>Choose from available time slots that work for you</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-text">
+                                <h3>Quick Confirmation</h3>
+                                <p>Receive confirmation within 2 hours of booking</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📱</div>
+                            <div class="feature-text">
+                                <h3>Mobile Friendly</h3>
+                                <p>Book appointments from any device, anywhere</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🔄</div>
+                            <div class="feature-text">
+                                <h3>Easy Rescheduling</h3>
+                                <p>Modify or cancel appointments with ease</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scheduling-form-container">
+                    <form id="appointment-form" class="appointment-form">
+                        <h3>Book Your Appointment</h3>
+                        
+                        <!-- Customer Information -->
+                        <div class="form-section">
+                            <h4>Customer Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="first-name">First Name *</label>
+                                    <input type="text" id="first-name" name="first-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last-name">Last Name *</label>
+                                    <input type="text" id="last-name" name="last-name" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Service Address *</label>
+                                <input type="text" id="address" name="address" placeholder="Street Address, City, State, ZIP" required>
+                            </div>
+                        </div>
+
+                        <!-- Service Information -->
+                        <div class="form-section">
+                            <h4>Service Details</h4>
+                            <div class="form-group">
+                                <label for="service-type">Service Type *</label>
+                                <select id="service-type" name="service-type" required>
+                                    <option value="">Select a service type</option>
+                                    <option value="emergency">🚨 Emergency Service</option>
+                                    <option value="new-construction">🏗️ New Construction</option>
+                                    <option value="sewer-repair">🔧 Sewer Repair/Replacement</option>
+                                    <option value="residential">🏠 Residential Service</option>
+                                    <option value="maintenance">🔧 Maintenance</option>
+                                    <option value="inspection">🔍 Inspection</option>
+                                    <option value="other">📋 Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="service-description">Service Description *</label>
+                                <textarea id="service-description" name="service-description" rows="4" placeholder="Please describe your plumbing issue or project details..." required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="emergency" name="emergency">
+                                    <span class="checkmark"></span>
+                                    This is an emergency (we'll prioritize your request)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Appointment Scheduling -->
+                        <div class="form-section">
+                            <h4>Schedule Appointment</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="preferred-date">Preferred Date *</label>
+                                    <input type="date" id="preferred-date" name="preferred-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="preferred-time">Preferred Time *</label>
+                                    <select id="preferred-time" name="preferred-time" required>
+                                        <option value="">Select time</option>
+                                        <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+                                        <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
+                                        <option value="evening">Evening (4:00 PM - 8:00 PM)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="alternate-dates">Alternate Dates (Optional)</label>
+                                <input type="text" id="alternate-dates" name="alternate-dates" placeholder="e.g., Tuesday, Wednesday, or Thursday this week">
+                            </div>
+                        </div>
+
+                        <!-- Additional Information -->
+                        <div class="form-section">
+                            <h4>Additional Information</h4>
+                            <div class="form-group">
+                                <label for="special-instructions">Special Instructions</label>
+                                <textarea id="special-instructions" name="special-instructions" rows="3" placeholder="Any special instructions, access codes, or additional information..."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="new-customer" name="new-customer">
+                                    <span class="checkmark"></span>
+                                    I'm a new customer
+                                </label>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="contact-permission" name="contact-permission" required>
+                                    <span class="checkmark"></span>
+                                    I agree to be contacted regarding my appointment
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit-appointment" class="btn-primary">Schedule Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Types -->
+    <section class="service-types">
+        <div class="container">
+            <h2 class="section-title">Our Service Types</h2>
+            <div class="service-types-grid">
+                <div class="service-type-card">
+                    <div class="type-icon">🚨</div>
+                    <h3>Emergency Service</h3>
+                    <p>Urgent repairs, leaks, or burst pipes</p>
+                    <span class="response-time">Response: 1-2 hours</span>
+                </div>
+                <div class="service-type-card">
+                    <div class="type-icon">🏗️</div>
+                    <h3>New Construction</h3>
+                    <p>Residential and commercial new builds</p>
+                    <span class="response-time">Response: 1-3 days</span>
+                </div>
+                <div class="service-type-card">
+                    <div class="type-icon">🔧</div>
+                    <h3>Sewer Repair/Replacement</h3>
+                    <p>Sewer line diagnostics and repair</p>
+                    <span class="response-time">Response: Same day</span>
+                </div>
+                <div class="service-type-card">
+                    <div class="type-icon">🏠</div>
+                    <h3>Residential Services</h3>
+                    <p>Home plumbing repairs and maintenance</p>
+                    <span class="response-time">Response: 1-5 days</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Contact -->
+    <section class="emergency-contact">
+        <div class="container">
+            <div class="emergency-content">
+                <div class="emergency-info">
+                    <h2>Need Emergency Service?</h2>
+                    <p>For urgent plumbing emergencies, don't wait for online booking. Call us immediately for fast response.</p>
+                    <div class="emergency-phone">
+                        <span class="phone-icon">📞</span>
+                        <span class="phone-number"><a href="tel:270-681-8162">(270) 681-8162</a></span>
+                    </div>
+                    <p class="emergency-note">Available 24/7 for emergency services</p>
+                </div>
+                <div class="emergency-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="TNP Emergency plumbing service in Paducah">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Schedule Your Service?</h2>
+            <p>Book your appointment now and experience the convenience of online scheduling with Top Notch Plumbing (TNP).</p>
+            <div class="cta-buttons">
+                <a href="#appointment-form" class="btn-primary">Book Appointment</a>
+                <a href="contact.html" class="btn-outline">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Top Notch Plumbing (TNP)</h3>
+                    <p>Serving Paducah, KY since 2019</p>
+                    <p>Phone: <a href="tel:270-681-8162">(270) 681-8162</a></p>
+                    <p>Email: <a href="mailto:info@tnpplumbing.com">info@tnpplumbing.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="services.html#construction">New Construction</a></li>
+                        <li><a href="services.html#sewer">Sewer Repair</a></li>
+                        <li><a href="services.html#residential">Residential Services</a></li>
+                        <li><a href="services.html#emergency">Emergency Plumbing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="scheduling.html">Schedule Service</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="https://facebook.com/DavisTNP" target="_blank">Follow on Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Top Notch Plumbing. Serving Paducah, KY since 2019.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="scheduling.js"></script>
+</body>
+</html>
