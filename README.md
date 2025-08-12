@@ -73,18 +73,44 @@ TNP-Website/
 ## 🔧 Future Enhancements
 
 ### Planned Features
-- [ ] **QuickBooks Integration**: Connect scheduling form to QuickBooks
+- [x] **QuickBooks Integration**: ✅ New customer signup form automatically creates customer records in QuickBooks
 - [ ] **Email Notifications**: Send confirmation emails for appointments
-- [ ] **Customer Database**: Store customer information
+- [x] **Customer Database**: ✅ Integrated with QuickBooks Online for customer management
 - [ ] **Admin Dashboard**: Manage appointments and customers
 - [ ] **Payment Processing**: Online payment integration
 - [ ] **Blog/News Section**: Company updates and plumbing tips
 
+### QuickBooks Integration Setup
+
+The website now includes automatic QuickBooks Online integration for new customer signups.
+
+#### Environment Variables Required (Set in Netlify Dashboard):
+```
+QB_CLIENT_ID=your_quickbooks_client_id
+QB_CLIENT_SECRET=your_quickbooks_client_secret
+QB_ACCESS_TOKEN=your_quickbooks_access_token
+QB_REFRESH_TOKEN=your_quickbooks_refresh_token
+QB_REALM_ID=your_quickbooks_realm_id
+QB_ENVIRONMENT=sandbox  # or 'production' for live data
+```
+
+#### QuickBooks OAuth Setup:
+1. **Create QuickBooks App**: Go to [Intuit Developer](https://developer.intuit.com/)
+2. **Get OAuth Credentials**: Create a new app and get Client ID/Secret
+3. **Set Redirect URLs**: Add your Netlify domain to allowed redirects
+4. **Get Access Token**: Use OAuth flow to get initial tokens
+5. **Set Environment Variables**: Add all QB_* variables to Netlify
+
+#### Testing:
+- Use `QB_ENVIRONMENT=sandbox` for testing
+- Use `QB_ENVIRONMENT=production` for live data
+- Test the form submission to verify QuickBooks integration
+
 ### Node.js Backend (Future)
-When ready to add backend functionality:
+When ready to add more backend functionality:
 
 ```bash
-# Install dependencies
+# Install additional dependencies
 npm install express cors dotenv nodemailer
 
 # Add to package.json scripts

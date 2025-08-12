@@ -138,4 +138,50 @@ document.addEventListener('DOMContentLoaded', () => {
             filterServices(category);
         });
     });
+    
+    // New Customer Form Handling
+    const newCustomerForm = document.querySelector('#new-customer-form');
+    if (newCustomerForm) {
+        newCustomerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const submitBtn = document.querySelector('#customer-submit-btn');
+            const successMessage = document.querySelector('#customer-success-message');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Adding to QuickBooks...';
+            submitBtn.disabled = true;
+            
+            // Submit to Netlify Forms
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    newCustomerForm.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting the form. Please try again.');
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
 });

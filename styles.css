@@ -1458,6 +1458,76 @@ body {
     width: auto;
 }
 
+/* New Customer Form Styles */
+.new-customer-form {
+    margin-bottom: 3rem;
+    border: 2px solid var(--primary-gold);
+    border-radius: 15px;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(255, 215, 0, 0.02) 100%);
+    position: relative;
+}
+
+.new-customer-form::before {
+    content: '🌟';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: var(--background-white);
+    padding: 0 10px;
+    font-size: 1.2rem;
+}
+
+.new-customer-form h3 {
+    color: var(--primary-gold);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.new-customer-form p {
+    color: #64748b;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.success-message {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    text-align: center;
+    animation: fadeInUp 0.5s ease;
+}
+
+.success-message p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Responsive adjustments for new customer form */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .new-customer-form {
+        padding: 1.5rem;
+    }
+    
+    .new-customer-form h3 {
+        font-size: 1.3rem;
+    }
+}
+
 .service-areas-contact {
     background: #f8f8f8;
     padding: 80px 0;

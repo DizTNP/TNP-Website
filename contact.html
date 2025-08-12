@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contact Top Notch Plumbing (TNP) in Paducah, KY. Get in touch for quotes, emergency services, or general inquiries. Call (270) 681-8162.">
-    <meta name="keywords" content="contact Top Notch Plumbing, TNP, Paducah plumber contact, plumbing quote, sewer repair Paducah">
+    <meta name="description" content="Contact Top Notch Plumbing (TNP) in Paducah, KY. Sign up as a new customer, get quotes, emergency services, or general inquiries. Call (270) 681-8162.">
+    <meta name="keywords" content="contact Top Notch Plumbing, TNP, Paducah plumber contact, plumbing quote, sewer repair Paducah, sign up plumber Paducah KY, new customer registration">
     <title>Contact Us - Top Notch Plumbing (TNP)</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -118,6 +118,69 @@
                 </div>
                 
                 <div class="contact-form-container">
+                    <!-- New Customer Signup Form -->
+                    <form id="new-customer-form" name="new-customer" data-netlify="true" class="contact-form new-customer-form">
+                        <h3>New Customer Signup</h3>
+                        <p>Sign up as a new customer and we'll automatically add you to our QuickBooks system for faster service!</p>
+                        
+                        <div class="form-group">
+                            <label for="customer-name">Full Name *</label>
+                            <input type="text" id="customer-name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-phone">Phone Number *</label>
+                            <input type="tel" id="customer-phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-address">Address Line 1 *</label>
+                            <input type="text" id="customer-address" name="address-line1" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customer-city">City *</label>
+                                <input type="text" id="customer-city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-state">State *</label>
+                                <select id="customer-state" name="state" required>
+                                    <option value="KY" selected>Kentucky (KY)</option>
+                                    <option value="TN">Tennessee (TN)</option>
+                                    <option value="IL">Illinois (IL)</option>
+                                    <option value="MO">Missouri (MO)</option>
+                                    <option value="IN">Indiana (IN)</option>
+                                    <option value="OH">Ohio (OH)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-zip">ZIP Code *</label>
+                            <input type="text" id="customer-zip" name="zip" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="customer-email">Email Address *</label>
+                            <input type="email" id="customer-email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="customer-consent" name="consent" required>
+                                <span class="checkmark"></span>
+                                I agree to be added to Top Notch Plumbing's customer database
+                            </label>
+                        </div>
+                        
+                        <button type="submit" id="customer-submit-btn" class="btn btn-primary">Sign Up</button>
+                        <div id="customer-success-message" class="success-message" style="display: none;">
+                            <p>✅ Thanks! You've been successfully added to our QuickBooks system.</p>
+                        </div>
+                    </form>
+                    
+                    <!-- Original Contact Form -->
                     <form id="contact-form" class="contact-form">
                         <h3>Send Us a Message</h3>
                         <p>Fill out the form below and we'll get back to you as soon as possible.</p>
