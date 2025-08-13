@@ -6,8 +6,9 @@ A professional, responsive website for Top Notch Plumbing, serving Paducah, KY s
 
 - **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
 - **Professional Branding**: Gold and black color scheme with custom TNP logo
-- **Multi-Page Structure**: Home, Services, About, Scheduling, and Contact pages
-- **Interactive Scheduling**: Custom appointment booking form with validation
+ - **Multi-Page Structure**: Home, Services, About, Gallery, Scheduling, and Contact pages
+ - **Interactive Scheduling**: Custom appointment booking form with validation
+ - **Payments**: Stripe Checkout integration with Netlify Functions (service call fee)
 - **SEO Optimized**: Semantic HTML, meta tags, and structured data
 - **Modern UI/UX**: Smooth animations, hover effects, and professional styling
 
@@ -41,18 +42,24 @@ A professional, responsive website for Top Notch Plumbing, serving Paducah, KY s
 ## 📁 Project Structure
 
 ```
-TNP-Website/
+ TNP-Website/
 ├── index.html          # Homepage
 ├── about.html          # About Us page
 ├── services.html       # Services page
 ├── scheduling.html     # Appointment booking
 ├── contact.html        # Contact page
-├── styles.css          # Main stylesheet
-├── script.js           # Main JavaScript
+ ├── styles.css          # Main stylesheet
+ ├── script.js           # Main JavaScript
+ ├── gallery.html        # Photo gallery of our work
 ├── scheduling.js       # Scheduling form logic
-├── images/
+ ├── images/
 │   └── tnp-logo-no-backgrond.gif  # Company logo
-├── package.json        # Node.js configuration
+ ├── netlify/
+ │   └── functions/
+ │       ├── add-customer.js       # QuickBooks integration (existing)
+ │       ├── create-payment.js     # Stripe Checkout session creator
+ │       └── payment-webhook.js    # Stripe webhook to confirm and add customer
+ ├── package.json        # Node.js configuration
 ├── .gitignore          # Git ignore rules
 └── README.md           # This file
 ```
@@ -70,14 +77,32 @@ TNP-Website/
 - **Primary Font**: Roboto (Google Fonts)
 - **Fallback**: Arial, sans-serif
 
-## 🔧 Future Enhancements
+## 🔧 Backend & Integrations
+
+### Stripe Payments (Service Call Fee)
+Stripe Checkout is used to securely collect the service call fee before confirming appointments.
+
+1) Add environment variables in Netlify (Site Settings → Build & Deploy → Environment):
+```
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+SITE_URL=https://your-site.netlify.app
+```
+
+2) Deploy Netlify Functions present in `netlify/functions/` automatically with Netlify.
+
+3) Test using Stripe test cards (e.g., 4242 4242 4242 4242).
+
+Frontend flow: `scheduling.html` + `scheduling.js` → calls `/.netlify/functions/create-payment` → redirects to Stripe → upon success, webhook `payment-webhook.js` runs and adds customer via `add-customer.js`.
+
+### QuickBooks Integration
 
 ### Planned Features
 - [x] **QuickBooks Integration**: ✅ New customer signup form automatically creates customer records in QuickBooks
 - [ ] **Email Notifications**: Send confirmation emails for appointments
 - [x] **Customer Database**: ✅ Integrated with QuickBooks Online for customer management
 - [ ] **Admin Dashboard**: Manage appointments and customers
-- [ ] **Payment Processing**: Online payment integration
+- [x] **Payment Processing**: Online payment integration via Stripe Checkout
 - [ ] **Blog/News Section**: Company updates and plumbing tips
 
 ### QuickBooks Integration Setup
@@ -122,7 +147,7 @@ npm install express cors dotenv nodemailer
 
 - **Company**: Top Notch Plumbing (TNP)
 - **Phone**: (270) 681-8162
-- **Email**: info@tnpplumbing.com
+- **Email**: Diz@davistnp.com
 - **Location**: Paducah, KY
 - **Founded**: 2019
 - **Facebook**: [facebook.com/DavisTNP](https://facebook.com/DavisTNP)

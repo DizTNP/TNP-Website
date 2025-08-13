@@ -1,4 +1,4 @@
-// Scheduling Form JavaScript
+// Scheduling Form JavaScript with Stripe Payment Integration
 document.addEventListener('DOMContentLoaded', function() {
     const appointmentForm = document.getElementById('appointment-form');
     const submitButton = document.getElementById('submit-appointment');
@@ -8,12 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const today = new Date().toISOString().split('T')[0];
     dateInput.min = today;
     
+    // Check for payment success/cancel URL parameters
+    checkPaymentStatus();
+    
     // Form validation and submission
     appointmentForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         if (validateForm()) {
-            submitAppointment();
+            processPayment();
         }
     });
     
@@ -43,6 +46,115 @@ document.addEventListener('DOMContentLoaded', function() {
         handleEmergencyChange(this.checked);
     });
 });
+
+// Check payment status from URL parameters
+function checkPaymentStatus() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const success = urlParams.get('success');
+    const sessionId = urlParams.get('session_id');
+    const canceled = urlParams.get('canceled');
+    
+    if (success === 'true' && sessionId) {
+        showPaymentSuccessModal();
+        // Clear URL parameters
+        window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (canceled === 'true') {
+        showPaymentErrorModal('Payment was canceled. Please try again or call us at (270) 681-8162.');
+        // Clear URL parameters
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+}
+
+// Process payment with Stripe
+async function processPayment() {
+    const submitButton = document.getElementById('submit-appointment');
+    const form = document.getElementById('appointment-form');
+    
+    // Show loading state
+    submitButton.classList.add('loading');
+    submitButton.textContent = 'Processing...';
+    
+    try {
+        // Collect form data
+        const formData = new FormData(form);
+        const paymentData = {
+            customerName: `${formData.get('first-name')} ${formData.get('last-name')}`,
+            customerEmail: formData.get('email'),
+            customerPhone: formData.get('phone'),
+            serviceAddress: formData.get('address'),
+            serviceType: formData.get('service-type'),
+            serviceDescription: formData.get('service-description'),
+            appointmentDate: formData.get('preferred-date'),
+            appointmentTime: formData.get('preferred-time'),
+            isEmergency: formData.get('emergency') === 'on' ? 'true' : 'false',
+            specialInstructions: formData.get('special-instructions') || ''
+        };
+        
+        // Create Stripe checkout session
+        const response = await fetch('/.netlify/functions/create-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(paymentData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success && result.url) {
+            // Redirect to Stripe Checkout
+            window.location.href = result.url;
+        } else {
+            throw new Error(result.error || 'Failed to create payment session');
+        }
+        
+    } catch (error) {
+        console.error('Payment processing error:', error);
+        showPaymentErrorModal('There was an error processing your payment. Please try again or call us at (270) 681-8162.');
+    } finally {
+        // Reset button state
+        submitButton.classList.remove('loading');
+        submitButton.textContent = 'Continue to Payment';
+    }
+}
+
+// Show payment success modal
+function showPaymentSuccessModal() {
+    const modal = document.getElementById('payment-success-modal');
+    const appointmentId = 'APT-' + Date.now();
+    const appointmentDate = document.getElementById('preferred-date').value;
+    const appointmentTime = document.getElementById('preferred-time').value;
+    
+    // Set appointment details
+    document.getElementById('appointment-id').textContent = appointmentId;
+    document.getElementById('appointment-date').textContent = formatDate(appointmentDate);
+    document.getElementById('appointment-time').textContent = formatTime(appointmentTime);
+    
+    // Show modal
+    modal.style.display = 'flex';
+    
+    // Reset form
+    document.getElementById('appointment-form').reset();
+}
+
+// Show payment error modal
+function showPaymentErrorModal(message) {
+    const modal = document.getElementById('payment-error-modal');
+    const messageElement = document.getElementById('payment-error-message');
+    
+    messageElement.textContent = message;
+    modal.style.display = 'flex';
+}
+
+// Close payment success modal
+function closePaymentSuccessModal() {
+    document.getElementById('payment-success-modal').style.display = 'none';
+}
+
+// Close payment error modal
+function closePaymentErrorModal() {
+    document.getElementById('payment-error-modal').style.display = 'none';
+}
 
 // Form validation
 function validateForm() {
@@ -246,125 +358,6 @@ function handleEmergencyChange(isEmergency) {
     }
 }
 
-// Submit appointment
-async function submitAppointment() {
-    const submitButton = document.getElementById('submit-appointment');
-    const form = document.getElementById('appointment-form');
-    
-    // Show loading state
-    submitButton.classList.add('loading');
-    submitButton.textContent = 'Scheduling...';
-    
-    try {
-        // Collect form data
-        const formData = new FormData(form);
-        const appointmentData = {
-            customer: {
-                firstName: formData.get('first-name'),
-                lastName: formData.get('last-name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                address: formData.get('address'),
-                isNewCustomer: formData.get('new-customer') === 'on'
-            },
-            service: {
-                type: formData.get('service-type'),
-                description: formData.get('service-description'),
-                isEmergency: formData.get('emergency') === 'on'
-            },
-            appointment: {
-                preferredDate: formData.get('preferred-date'),
-                preferredTime: formData.get('preferred-time'),
-                alternateDates: formData.get('alternate-dates'),
-                specialInstructions: formData.get('special-instructions')
-            },
-            metadata: {
-                submittedAt: new Date().toISOString(),
-                source: 'website_scheduling_form'
-            }
-        };
-        
-        // TODO: Replace with actual API endpoint
-        // For now, simulate API call
-        await simulateApiCall(appointmentData);
-        
-        // Show success message
-        showSuccessMessage(appointmentData);
-        
-        // Reset form
-        form.reset();
-        
-        // Scroll to success message
-        document.querySelector('.success-message').scrollIntoView({ 
-            behavior: 'smooth' 
-        });
-        
-    } catch (error) {
-        console.error('Error submitting appointment:', error);
-        showErrorMessage('There was an error scheduling your appointment. Please try again or call us at (270) 681-8162.');
-    } finally {
-        // Reset button state
-        submitButton.classList.remove('loading');
-        submitButton.textContent = 'Schedule Appointment';
-    }
-}
-
-// Simulate API call (replace with actual API endpoint)
-async function simulateApiCall(appointmentData) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            // Simulate 90% success rate
-            if (Math.random() > 0.1) {
-                resolve({
-                    success: true,
-                    appointmentId: 'APT-' + Date.now(),
-                    message: 'Appointment scheduled successfully'
-                });
-            } else {
-                reject(new Error('Simulated API error'));
-            }
-        }, 2000);
-    });
-}
-
-// Show success message
-function showSuccessMessage(appointmentData) {
-    const form = document.getElementById('appointment-form');
-    const successMessage = document.createElement('div');
-    successMessage.className = 'success-message';
-    successMessage.innerHTML = `
-        <h4>✅ Appointment Scheduled Successfully!</h4>
-        <p>Thank you, ${appointmentData.customer.firstName}! Your appointment has been scheduled for ${formatDate(appointmentData.appointment.preferredDate)} at ${formatTime(appointmentData.appointment.preferredTime)}.</p>
-        <p>We'll send a confirmation email to ${appointmentData.customer.email} within 2 hours with additional details.</p>
-        <p><strong>Appointment ID:</strong> ${'APT-' + Date.now()}</p>
-    `;
-    
-    form.insertBefore(successMessage, form.firstChild);
-    
-    // TODO: Send data to QuickBooks API
-    // sendToQuickBooks(appointmentData);
-}
-
-// Show error message
-function showErrorMessage(message) {
-    const form = document.getElementById('appointment-form');
-    const errorMessage = document.createElement('div');
-    errorMessage.className = 'error-message';
-    errorMessage.style.cssText = `
-        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-        color: #721c24;
-        padding: 1.5rem;
-        border-radius: 8px;
-        border: 1px solid #f5c6cb;
-        margin-bottom: 2rem;
-        text-align: center;
-        font-weight: 500;
-    `;
-    errorMessage.textContent = message;
-    
-    form.insertBefore(errorMessage, form.firstChild);
-}
-
 // Format date for display
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -386,44 +379,12 @@ function formatTime(timeSlot) {
     return timeMap[timeSlot] || timeSlot;
 }
 
-// TODO: QuickBooks Integration Function
-function sendToQuickBooks(appointmentData) {
-    // This function will be implemented when QuickBooks integration is set up
-    console.log('Sending to QuickBooks:', appointmentData);
-    
-    // Example QuickBooks API call structure:
-    /*
-    const quickbooksData = {
-        customer: {
-            name: `${appointmentData.customer.firstName} ${appointmentData.customer.lastName}`,
-            email: appointmentData.customer.email,
-            phone: appointmentData.customer.phone,
-            address: appointmentData.customer.address
-        },
-        service: {
-            name: appointmentData.service.type,
-            description: appointmentData.service.description
-        },
-        appointment: {
-            date: appointmentData.appointment.preferredDate,
-            time: appointmentData.appointment.preferredTime
-        }
-    };
-    
-    // Make API call to QuickBooks
-    fetch('/api/quickbooks/customer', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(quickbooksData)
-    });
-    */
-}
-
 // Export functions for potential external use
 window.SchedulingForm = {
     validateForm,
-    submitAppointment,
-    sendToQuickBooks
+    processPayment,
+    showPaymentSuccessModal,
+    showPaymentErrorModal,
+    closePaymentSuccessModal,
+    closePaymentErrorModal
 };

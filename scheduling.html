@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/gif" href="images/tnp-logo-no-backgrond.gif">
+    <!-- Stripe Checkout Integration -->
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
     <!-- Emergency Contact Bar - Inspired by Mr. Rooter -->
@@ -31,6 +33,7 @@
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="services.html" class="nav-link">Services</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
                 <li><a href="scheduling.html" class="nav-link active">Scheduling</a></li>
                 <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
@@ -42,8 +45,12 @@
         </div>
     </nav>
 
+    <a href="https://facebook.com/DavisTNP" target="_blank" class="facebook-logo-top-right" aria-label="Follow us on Facebook">
+        <span>📘</span>
+    </a>
+
     <!-- Page Header -->
-    <section class="page-header">
+    <section class="page-header animate-fade-in">
         <div class="container">
             <h1>Schedule Your Plumbing Appointment</h1>
             <p>Book your appointment online with our easy scheduling system. Select your service and preferred time slot.</p>
@@ -54,9 +61,9 @@
     <section class="scheduling-form-section">
         <div class="container">
             <div class="scheduling-content">
-                <div class="scheduling-info">
+                <div class="scheduling-info animate-fade-in">
                     <h2>Easy Online Booking</h2>
-                    <p>Our scheduling system makes it simple to book your plumbing appointment. Fill out the form below and we'll confirm your appointment within 2 hours.</p>
+                    <p>Our scheduling system makes it simple to book your plumbing appointment. Fill out the form below and we'll confirm your appointment after payment processing.</p>
                     
                     <div class="booking-features">
                         <div class="feature-item">
@@ -67,17 +74,17 @@
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">⚡</div>
+                            <div class="feature-icon">💳</div>
                             <div class="feature-text">
-                                <h3>Quick Confirmation</h3>
-                                <p>Receive confirmation within 2 hours of booking</p>
+                                <h3>Secure Payment</h3>
+                                <p>Pay your service call fee securely online</p>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">📱</div>
+                            <div class="feature-icon">✅</div>
                             <div class="feature-text">
-                                <h3>Mobile Friendly</h3>
-                                <p>Book appointments from any device, anywhere</p>
+                                <h3>Instant Confirmation</h3>
+                                <p>Get immediate confirmation of your appointment</p>
                             </div>
                         </div>
                         <div class="feature-item">
@@ -90,7 +97,7 @@
                     </div>
                 </div>
                 
-                <div class="scheduling-form-container">
+                <div class="scheduling-form-container animate-fade-in">
                     <form id="appointment-form" class="appointment-form">
                         <h3>Book Your Appointment</h3>
                         
@@ -206,7 +213,18 @@
                             </div>
                         </div>
 
-                        <button type="submit" id="submit-appointment" class="btn-primary">Schedule Appointment</button>
+                        <!-- Service Call Fee Notice -->
+                        <div class="service-fee-notice">
+                            <div class="fee-info">
+                                <span class="fee-icon">💰</span>
+                                <div class="fee-text">
+                                    <strong>Service Call Fee: $50.00</strong>
+                                    <p>This fee guarantees your appointment and covers our initial visit to assess your plumbing needs.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" id="submit-appointment" class="btn-primary animate-fade-in">Continue to Payment</button>
                     </form>
                 </div>
             </div>
@@ -216,27 +234,27 @@
     <!-- Service Types -->
     <section class="service-types">
         <div class="container">
-            <h2 class="section-title">Our Service Types</h2>
+            <h2 class="section-title animate-fade-in">Our Service Types</h2>
             <div class="service-types-grid">
-                <div class="service-type-card">
+                <div class="service-type-card animate-fade-in">
                     <div class="type-icon">🚨</div>
                     <h3>Emergency Service</h3>
                     <p>Urgent repairs, leaks, or burst pipes</p>
                     <span class="response-time">Response: 1-2 hours</span>
                 </div>
-                <div class="service-type-card">
+                <div class="service-type-card animate-fade-in">
                     <div class="type-icon">🏗️</div>
                     <h3>New Construction</h3>
                     <p>Residential and commercial new builds</p>
                     <span class="response-time">Response: 1-3 days</span>
                 </div>
-                <div class="service-type-card">
+                <div class="service-type-card animate-fade-in">
                     <div class="type-icon">🔧</div>
                     <h3>Sewer Repair/Replacement</h3>
                     <p>Sewer line diagnostics and repair</p>
                     <span class="response-time">Response: Same day</span>
                 </div>
-                <div class="service-type-card">
+                <div class="service-type-card animate-fade-in">
                     <div class="type-icon">🏠</div>
                     <h3>Residential Services</h3>
                     <p>Home plumbing repairs and maintenance</p>
@@ -250,7 +268,7 @@
     <section class="emergency-contact">
         <div class="container">
             <div class="emergency-content">
-                <div class="emergency-info">
+                <div class="emergency-info animate-fade-in">
                     <h2>Need Emergency Service?</h2>
                     <p>For urgent plumbing emergencies, don't wait for online booking. Call us immediately for fast response.</p>
                     <div class="emergency-phone">
@@ -259,7 +277,7 @@
                     </div>
                     <p class="emergency-note">Available 24/7 for emergency services</p>
                 </div>
-                <div class="emergency-image">
+                <div class="emergency-image animate-fade-in">
                     <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="TNP Emergency plumbing service in Paducah">
                 </div>
             </div>
@@ -286,7 +304,7 @@
                     <h3>Top Notch Plumbing (TNP)</h3>
                     <p>Serving Paducah, KY since 2019</p>
                     <p>Phone: <a href="tel:270-681-8162">(270) 681-8162</a></p>
-                    <p>Email: <a href="mailto:info@tnpplumbing.com">info@tnpplumbing.com</a></p>
+                    <p>Email: <a href="mailto:Diz@davistnp.com">Diz@davistnp.com</a></p>
                 </div>
                 <div class="footer-section">
                     <h3>Services</h3>
@@ -312,6 +330,32 @@
             </div>
         </div>
     </footer>
+
+    <!-- Payment Success Modal -->
+    <div id="payment-success-modal" class="payment-modal">
+        <div class="payment-modal-content">
+            <div class="success-icon">✅</div>
+            <h3>Payment Successful!</h3>
+            <p>Your service call fee has been processed and your appointment is confirmed.</p>
+            <div class="appointment-details">
+                <p><strong>Appointment ID:</strong> <span id="appointment-id"></span></p>
+                <p><strong>Date:</strong> <span id="appointment-date"></span></p>
+                <p><strong>Time:</strong> <span id="appointment-time"></span></p>
+            </div>
+            <p>We'll send a confirmation email with additional details within 2 hours.</p>
+            <button class="btn-primary" onclick="closePaymentSuccessModal()">Done</button>
+        </div>
+    </div>
+
+    <!-- Payment Error Modal -->
+    <div id="payment-error-modal" class="payment-modal">
+        <div class="payment-modal-content">
+            <div class="error-icon">❌</div>
+            <h3>Payment Error</h3>
+            <p id="payment-error-message">There was an error processing your payment. Please try again.</p>
+            <button class="btn-primary" onclick="closePaymentErrorModal()">Try Again</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script src="scheduling.js"></script>

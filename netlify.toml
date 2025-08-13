@@ -19,14 +19,6 @@
   status = 200
   method = "POST"
 
-# Handle form submissions
-[[redirects]]
-  from = "/"
-  to = "/.netlify/functions/add-customer"
-  status = 200
-  method = "POST"
-  conditions = {Role = ["admin"]}
-
 # Functions configuration
 [functions]
   # Directory containing Netlify Functions
