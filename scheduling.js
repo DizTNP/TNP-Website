@@ -47,6 +47,70 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Send customer to QuickBooks via Netlify Function
+async function sendToQuickBooks(appointmentData) {
+    try {
+        // Map scheduling data to QuickBooks expected payload
+        const {
+            customerName = '',
+            customerEmail = '',
+            customerPhone = '',
+            serviceAddress = ''
+        } = appointmentData || {};
+
+        // Parse address "Street, City, ST, ZIP"
+        let addressLine1 = serviceAddress || '';
+        let city = '';
+        let state = '';
+        let zip = '';
+
+        if (serviceAddress && serviceAddress.includes(',')) {
+            const parts = serviceAddress.split(',').map(p => p.trim());
+            addressLine1 = parts[0] || '';
+            city = parts[1] || '';
+            // Handle state and zip from third or fourth part
+            const stateZipRaw = (parts[2] || '') + ' ' + (parts[3] || '');
+            const stateZipTokens = stateZipRaw.trim().split(/\s+/);
+            // Find a 2-letter state token
+            const stateToken = stateZipTokens.find(t => /^[A-Za-z]{2}$/.test(t));
+            // Find a 5-digit zip (or 9-digit with dash)
+            const zipToken = stateZipTokens.find(t => /^\d{5}(-\d{4})?$/.test(t));
+            state = stateToken || '';
+            zip = zipToken || '';
+        }
+
+        const payload = {
+            name: customerName,
+            email: customerEmail,
+            phone: customerPhone,
+            'address-line1': addressLine1,
+            city,
+            state,
+            zip
+        };
+
+        const response = await fetch('/.netlify/functions/add-customer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json().catch(() => ({ success: false, error: 'Invalid JSON response' }));
+
+        if (!response.ok) {
+            const errorMessage = result?.error || 'Failed to add customer to QuickBooks';
+            throw new Error(errorMessage);
+        }
+
+        return { success: true, data: result };
+    } catch (err) {
+        console.error('sendToQuickBooks error:', err);
+        return { success: false, error: err.message || 'Unknown error' };
+    }
+}
+
 // Check payment status from URL parameters
 function checkPaymentStatus() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -386,5 +450,6 @@ window.SchedulingForm = {
     showPaymentSuccessModal,
     showPaymentErrorModal,
     closePaymentSuccessModal,
-    closePaymentErrorModal
+    closePaymentErrorModal,
+    sendToQuickBooks
 };

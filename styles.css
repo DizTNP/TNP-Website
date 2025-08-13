@@ -371,7 +371,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     filter: brightness(0.7);
-    z-index: 1;
+    z-index: 0;
     pointer-events: none;
     opacity: 0;
 }
@@ -449,32 +449,50 @@ body {
     z-index: 2; /* above slideshow */
 }
 
+/* Overlay to darken slideshow for readability */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Improve contrast and readability on hero */
+.hero-text {
+    background: transparent;
+}
+
 .hero-text h1 {
     font-size: 3rem;
-    font-weight: 700;
-    color: var(--text-dark);
+    font-weight: 800;
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    color: #ffffff;
     margin-bottom: 1.5rem;
     line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-tagline {
     font-size: 1.25rem;
-    color: var(--primary-gold);
+    color: #ffffff;
     margin-bottom: 1rem;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
-    color: var(--text-light);
+    font-size: 1.15rem;
+    color: #e5e7eb; /* light gray for contrast on dark panel */
     margin-bottom: 2rem;
     line-height: 1.6;
 }
 
 .hero-features {
     display: flex;
-    gap: 1.5rem;
-    margin-top: 2rem;
+    gap: 0.75rem;
+    margin: 1rem 0 1.25rem 0; /* position features closer to text for better flow */
     flex-wrap: wrap;
 }
 
@@ -482,17 +500,23 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(212, 175, 55, 0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
+    padding: 0.45rem 0.9rem;
+    border-radius: 24px;
     border: 1px solid var(--primary-gold);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-dark);
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+/* Hero-specific badge contrast */
+.hero .feature-badge,
+.hero-features .feature-badge {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
 }
 
 .badge-icon {
     font-size: 1rem;
+    color: var(--accent-yellow);
 }
 
 .hero-image {
